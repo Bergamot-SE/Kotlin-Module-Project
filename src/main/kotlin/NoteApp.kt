@@ -16,17 +16,16 @@ class NotesApp {
             println("0. Создать архив")
             println("${archives.size + 1}. Выход")
 
-            when (val input = readLine()?.trim() ?: "") {
+            when (val input = readlnOrNull()?.trim() ?: "") {
                 "0" -> createArchive()
                 (archives.size + 1).toString() -> {
                     println("Выход из программы.")
                     kotlin.system.exitProcess(0)
                 }
                 else -> {
-                    val choice = input.toIntOrNull()
-                    when {
-                        choice == null -> println("Пожалуйста, введите число")
-                        choice in 1..archives.size -> {
+                    when (val choice = input.toIntOrNull()) {
+                        null -> println("Пожалуйста, введите число")
+                        in 1..archives.size -> {
                             openArchiveMenu(archives[choice - 1])
                             return
                         }
@@ -39,7 +38,7 @@ class NotesApp {
 
     private fun createArchive() {
         println("Введите название архива:")
-        val name = readLine()?.trim() ?: ""
+        val name = readlnOrNull()?.trim() ?: ""
 
         if (name.isEmpty()) {
             println("Название архива не может быть пустым!")
@@ -59,14 +58,13 @@ class NotesApp {
             println("0. Создать заметку")
             println("${archive.notes.size + 1}. Назад")
 
-            when (val input = readLine()?.trim() ?: "") {
+            when (val input = readlnOrNull()?.trim() ?: "") {
                 "0" -> createNote(archive)
                 (archive.notes.size + 1).toString() -> return
                 else -> {
-                    val choice = input.toIntOrNull()
-                    when {
-                        choice == null -> println("Пожалуйста, введите число")
-                        choice in 1..archive.notes.size -> showNoteContent(archive.notes[choice - 1])
+                    when (val choice = input.toIntOrNull()) {
+                        null -> println("Пожалуйста, введите число")
+                        in 1..archive.notes.size -> showNoteContent(archive.notes[choice - 1])
                         else -> println("Пожалуйста, введите число от 0 до ${archive.notes.size + 1}")
                     }
                 }
@@ -76,7 +74,7 @@ class NotesApp {
 
     private fun createNote(archive: Archive) {
         println("Введите название заметки:")
-        val title = readLine()?.trim() ?: ""
+        val title = readlnOrNull()?.trim() ?: ""
 
         if (title.isEmpty()) {
             println("Название заметки не может быть пустым!")
@@ -84,7 +82,7 @@ class NotesApp {
         }
 
         println("Введите текст заметки:")
-        val content = readLine()?.trim() ?: ""
+        val content = readlnOrNull()?.trim() ?: ""
 
         if (content.isEmpty()) {
             println("Текст заметки не может быть пустым!")
@@ -100,6 +98,6 @@ class NotesApp {
         println(note.content)
         println("=====================")
         println("\nНажмите Enter для возврата...")
-        readLine()
+        readlnOrNull()
     }
 }
