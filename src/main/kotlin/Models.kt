@@ -1,4 +1,4 @@
-class Archive(val name: String) {
+data class Archive(val name: String) {
     private val _notes = mutableListOf<Note>()
     val notes: List<Note> get() = _notes
 
@@ -6,3 +6,5 @@ class Archive(val name: String) {
         _notes.add(note)
     }
 }
+
+data class Note(val title: String, val content: String)
